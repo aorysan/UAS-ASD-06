@@ -4,7 +4,9 @@ import algoritma.transaksiPajak;
 
 public class doubleLinkedList {
     Kendaraan head;
+    transaksiPajak tp;
     int size;
+    int kode;
 
     public boolean isEmpty() {
         return head == null;
@@ -16,9 +18,9 @@ public class doubleLinkedList {
 
     void addFirst(String noTNKB, String nama, String jenis, int cc, int tahun, int bulanHarusBayar) {
         if(isEmpty()) {
-            head = new Kendaraan(null, noTNKB, nama, jenis, cc, bulanHarusBayar, null);
+            head = new Kendaraan(null, noTNKB, nama, jenis, cc, tahun, bulanHarusBayar, null);
         } else {
-            Kendaraan newNode = new Kendaraan(null, noTNKB, nama, jenis, cc, bulanHarusBayar, head);
+            Kendaraan newNode = new Kendaraan(null, noTNKB, nama, jenis, cc, tahun, bulanHarusBayar, head);
             head.prev = newNode;
             head = newNode;
         }
@@ -34,7 +36,7 @@ public class doubleLinkedList {
                 current = current.next;
             }
 
-            Kendaraan newNode = new Kendaraan(current, noTNKB, nama, jenis, cc, bulanHarusBayar, null);
+            Kendaraan newNode = new Kendaraan(current, noTNKB, nama, jenis, cc, tahun, bulanHarusBayar, null);
             current.next = newNode;
             size++;
         }
@@ -48,37 +50,94 @@ public class doubleLinkedList {
             System.out.println("           Daftar Kendaraan           ");
             System.out.println("++++++++++++++++++++++++++++++++++++++");
 
-            System.out.println("| no TNKB\t| Nama Pemilik\t| Jenis\t| CC Kendaraan\t| Tahun\t| Bulan Harus Bayar \t|");
+            System.out.println("| no TNKB\t| Nama Pemilik\t| Jenis\t| CC Kendaraan  | Tahun\t| Bulan Harus Bayar |");
 
             while(tmp != null) {
-                System.out.print("| " + tmp.noTNKB + "\t| " + tmp.nama + "\t\t| " + tmp.jenis + "\t| " + tmp.cc + "\t\t| " + tmp.tahun + "\t| " + tmp.bulanHarusBayar + " \t\t|\n");
+                System.out.print("| " + tmp.noTNKB + "\t| " + tmp.nama + "\t\t| " + tmp.jenis + "\t| " + tmp.cc + "\t\t| " + tmp.tahun + "\t\t| " + tmp.bulanHarusBayar + "\t\t   |\n");
                 tmp = tmp.next;
             }
-            System.out.println("\nBerhasil diisi");
         } else {
             System.out.println("List kosong");
         }
     }
 
     public void printPajak(String noTNKB) throws Exception {
-        System.out.println("| Kode\t| Nominal\t| Denda\t| Bulan\t|");
-
-        System.out.println("| " + noTNKB + "\t| " + transaksiPajak.pajak(get(noTNKB)) + "\t| " + 0 + "\t| " + 1 + "\t|");
-    }
-
-    public int get(String noTNKB) throws Exception {
         if(isEmpty()) {
-            throw new Exception("Nilai index melebihi batas");
+            throw new Exception("Melebihi batas");
         }
 
         Kendaraan tmp = head;
 
-        for(int i = 0; i < size; i++) {
-            if(tmp.noTNKB.equals(noTNKB)) {
-                return tmp.cc;
+        while (tmp != null) {
+            if(tmp.noTNKB.equalsIgnoreCase(noTNKB)) {
+                break;
+            } else {
+                tmp = tmp.next;
             }
         }
 
-        return tmp.cc;
+        System.out.println("| Kode\t| TNKB\t| Nama\t| Nominal\t| Denda \t|");
+
+        String nama = getNama(noTNKB);
+        String tnkb = getTNKB(noTNKB);
+        int cc = getCC(noTNKB);
+        long pajak = tp.pajak(cc);
+        long denda = tp.denda(tmp.bulanHarusBayar);
+        kode++;
+
+        System.out.println("| " + kode + "\t| " + tmp.noTNKB + "\t| " + tmp.nama + "\t| " + pajak + "\t| " + denda + "\t\t|");
+    }
+
+    public int getCC(String noTNKB) throws Exception {
+        if(isEmpty()) {
+            throw new Exception("Melebihi batas");
+        }
+
+        Kendaraan tmp = head;
+
+        while (tmp != null) {
+            if(tmp.noTNKB.equalsIgnoreCase(noTNKB)) {
+                return tmp.cc;
+            } else {
+                tmp = tmp.next;
+            }
+        }
+
+        return 0;
+    }
+
+    public String getNama(String noTNKB) throws Exception {
+        if(isEmpty()) {
+            throw new Exception("Melebihi batas");
+        }
+
+        Kendaraan tmp = head;
+
+        while (tmp != null) {
+            if(tmp.noTNKB.equalsIgnoreCase(noTNKB)) {
+                return tmp.nama;
+            } else {
+                tmp = tmp.next;
+            }
+        }
+        return null;
+        }
+        
+        public String getTNKB(String noTNKB) throws Exception {
+            if(isEmpty()) {
+            throw new Exception("Melebihi batas");
+            }
+
+        Kendaraan tmp = head;
+        while (tmp != null) {
+            if(tmp.noTNKB.equalsIgnoreCase(noTNKB)) {
+                return tmp.noTNKB;
+                } else {
+                    tmp = tmp.next;
+            }
+        }
+        
+        return null;
     }
 }
+                

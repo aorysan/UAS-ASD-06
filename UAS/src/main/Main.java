@@ -31,8 +31,8 @@ public class Main {
                     System.out.print("Nomor TNKB: ");
                     String tnkb = scs.next();
 
-                    System.out.println("Bulan pembayaran: ");
-                    int bulan = scs.nextInt();
+                    System.out.print("Bulan pembayaran: ");
+                    int bulan = sci.nextInt();
 
                     kendaraan.printPajak(tnkb);
                     break;

@@ -10,12 +10,13 @@ public class Kendaraan {
     public Kendaraan next;
 
 
-    public Kendaraan(Kendaraan prev, String noTNKB, String nama, String jenis, int cc, int bulanHarusBayar, Kendaraan next){
+    public Kendaraan(Kendaraan prev, String noTNKB, String nama, String jenis, int cc, int tahun, int bulanHarusBayar, Kendaraan next){
         this.prev = prev;
         this.noTNKB = noTNKB;
         this.nama = nama;
         this.jenis = jenis;
         this.cc = cc;
+        this.tahun = tahun;
         this.bulanHarusBayar = bulanHarusBayar;
         this.next = next;
     }

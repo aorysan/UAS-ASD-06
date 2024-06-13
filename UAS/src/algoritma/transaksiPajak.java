@@ -29,12 +29,13 @@ public class transaksiPajak {
         return nominalBayar;
     }
 
-    void denda(int bulanBayar) {
+    public long denda(int bulanBayar) {
         if (bulanBayar <= 3 && bulanBayar >= 1) {
-            denda = 50000;
+            return denda = 50000;
         } else if (bulanBayar > 3) {
-            denda *= bulanBayar *= 50000;
+            return denda *= bulanBayar *= 50000;
         }
+        return denda;
     }
 
 }
